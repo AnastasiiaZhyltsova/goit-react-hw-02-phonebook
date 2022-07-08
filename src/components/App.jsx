@@ -1,33 +1,31 @@
 
 import React, { Component } from "react";
-import Form from "./Form/Form";
 import { nanoid } from "nanoid";
 
-import Filter from "./Filter/Filter";
-import ContactList from "./ContactList/ContactList";
+import Form from "./Form";
+import Filter from "./Filter";
+import ContactList from "./ContactList";
 
 class App extends Component {
 state = {
   contacts: [],
-  //   {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-  //   {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-  //   {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-  //   {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-  // ],
   filter:'',
   }
   
   formSubmitHandler = ({name, number}) => {
-    console.log({name, number});
     const contact = {
       id: nanoid(),
       name,
       number,
     }
-    
-    this.setState(({contacts}) => ({
-      contacts: [contact, ...contacts],
-    }))
+  
+    const { contacts } = this.state;
+    const normalzeName = name.toLocaleLowerCase();
+   // eslint-disable-next-line
+    {contacts.find(contact => contact.name.toLocaleLowerCase() === normalzeName)   
+       ? alert(`${contact.name} is already in contacts`)
+       : this.setState(({contacts}) => ({contacts: [contact, ...contacts]}))
+  }  
   };
 
   deleteContact = (contactId) => {
@@ -50,12 +48,15 @@ state = {
  
 
   render() {
-    const { filter } = this.state;
+    const { contacts, filter } = this.state;
     const contactsFilter = this.getContactsFilter();
     return (
       <div> 
          <h1>Phonebook</h1>  
-            <Form onSubmit={this.formSubmitHandler} /> 
+        <Form
+          onSubmit={this.formSubmitHandler}
+          contacts = {contacts}
+        /> 
 
         <h2>Contacts</h2>  
         <Filter
