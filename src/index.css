@@ -16,10 +16,9 @@ code {
 
 form {
   display: flex;
-  flex-direction: column;
- 
+  flex-direction: column; 
   margin: 0 auto;
-width: 350px;
+  width: 350px;
 }
 p,
 li,

@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./ContactList.module.css"
-
+import PropTypes from "prop-types";
 
 const ContactList = ({ contacts, onDeleteContact }) => (
   <div>
@@ -24,3 +24,8 @@ const ContactList = ({ contacts, onDeleteContact }) => (
 
 
 export default ContactList;
+
+ContactList.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  onDeleteContact: PropTypes.func.isRequired,
+}
